@@ -8,9 +8,8 @@ describe WordGuesserGame do
       game.guess(letter)
     end
   end
-
-  describe 'new', :pending => true do
-    it "takes a parameter and returns a WordGuesserGame object" do      
+  describe 'new' do
+    it "takes a parameter and returns a WordGuesserGame object" do #测试程序传递单词的正确性     
       @game = WordGuesserGame.new('glorp')
       expect(@game).to be_an_instance_of(WordGuesserGame)
       expect(@game.word).to eq('glorp')
@@ -19,17 +18,17 @@ describe WordGuesserGame do
     end
   end
 
-  describe 'guessing', :pending => true do
+  describe 'guessing' do
     context 'correctly' do
       before :each do
         @game = WordGuesserGame.new('garply')
-        @valid = @game.guess('a')
+        @valid = @game.guess('g')
       end
-      it 'changes correct guess list', :pending => true do
-        expect(@game.guesses).to eq('a')
+      it 'changes correct guess list' do#猜对字母的情况
+        expect(@game.guesses).to eq('g')
         expect(@game.wrong_guesses).to eq('')
       end
-      it 'returns true', :pending => true do
+      it 'returns true' do#重复猜测的正确字母
         expect(@valid).not_to be false
       end
     end
@@ -38,32 +37,32 @@ describe WordGuesserGame do
         @game = WordGuesserGame.new('garply')
         @valid = @game.guess('z')
       end
-      it 'changes wrong guess list', :pending => true do
+      it 'changes wrong guess list' do#判断错误输入
         expect(@game.guesses).to eq('')
         expect(@game.wrong_guesses).to eq('z')
       end
-      it 'returns true', :pending => true do
+      it 'returns true' do#重复错误猜测
         expect(@valid).not_to be false
       end
-    end
+    end 
     context 'same letter repeatedly' do
       before :each do
         @game = WordGuesserGame.new('garply')
         guess_several_letters(@game, 'aq')
       end
-      it 'does not change correct guess list', :pending => true do
+      it 'does not change correct guess list' do#无视重复正确字母对队列
         @game.guess('a')
         expect(@game.guesses).to eq('a')
       end
-      it 'does not change wrong guess list', :pending => true do
+      it 'does not change wrong guess list' do##无视重复错误字母对队列
         @game.guess('q')
         expect(@game.wrong_guesses).to eq('q')
       end
-      it 'returns false', :pending => true do
+      it 'returns false' do#重复字母返回错误信息
         expect(@game.guess('a')).to be false
         expect(@game.guess('q')).to be false
       end
-      it 'is case insensitive', :pending => true do
+      it 'is case insensitive' do#测试是否区分大写
         expect(@game.guess('A')).to be false
         expect(@game.guess('Q')).to be false
         expect(@game.guesses).not_to include('A')
@@ -74,19 +73,19 @@ describe WordGuesserGame do
       before :each do
         @game = WordGuesserGame.new('foobar')
       end
-      it 'throws an error when empty', :pending => true do
+      it 'throws an error when empty' do#测试是否区分空输入
         expect { @game.guess('') }.to raise_error(ArgumentError)
       end
-      it 'throws an error when not a letter', :pending => true do
+      it 'throws an error when not a letter' do#测试是否能检测非字母
         expect { @game.guess('%') }.to raise_error(ArgumentError)
       end
-      it 'throws an error when nil', :pending => true do
+      it 'throws an error when nil' do#是否可检测无效输入
         expect { @game.guess(nil) }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe 'displayed word with guesses', :pending => true do
+  describe 'displayed word with guesses' do#加-显示
     before :each do
       @game = WordGuesserGame.new('banana')
     end
@@ -108,16 +107,16 @@ describe WordGuesserGame do
     before :each do 
       @game = WordGuesserGame.new('dog')
     end
-    it 'should be win when all letters guessed', :pending => true do
+    it 'should be win when all letters guessed' do#猜对字母就过关
       guess_several_letters(@game, 'ogd')
       expect(@game.check_win_or_lose).to eq(:win)
     end
-    it 'should be lose after 7 incorrect guesses', :pending => true do
+    it 'should be lose after 7 incorrect guesses' do#猜错七次失败
       guess_several_letters(@game, 'tuvwxyz')
       expect(@game.check_win_or_lose).to eq(:lose)
     end
-    it 'should continue play if neither win nor lose', :pending => true do
-      guess_several_letters(@game, 'do')
+    it 'should continue play if neither win nor lose' do#猜错少于7次继续
+      guess_several_letters(@game, 'abced')
       expect(@game.check_win_or_lose).to eq(:play)
     end
   end

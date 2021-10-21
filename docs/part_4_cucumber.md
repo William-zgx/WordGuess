@@ -14,7 +14,7 @@ Normally, the cycle would be:
 
 In this assignment we're skipping the middle step since the goal is to give you an overview of all parts of the process.  Also, in the first step, for your own apps you'd be creating the Cucumber scenarios yourself; in this assignment we've provided them for you.
 
-Cucumber lets you express integration-test scenarios, which you'll find in the `features` directory in `.feature` files. You'll also see a `step_definitions` subdirectory with a single file `game_steps.rb`, containing the code used when each "step" in a scenario is executed as part of the test.
+Cucumber lets you express integration-test(集成测试) scenarios, which you'll find in the `features` directory in `.feature` files. You'll also see a `step_definitions` subdirectory with a single file `game_steps.rb`, containing the code used when each "step" in a scenario is executed as part of the test.
 
 As an integration testing tool, Cucumber can be used to test almost any kind of software system as long as there is a way to *simulate* the system and a way to *inspect* the system's behavior.  You select a *back end* for Cucumber based on how the end system is to be simulated and inspected.
 
